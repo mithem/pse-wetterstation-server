@@ -1,3 +1,10 @@
+<?php
+    global $SCHOOL_MONITOR_TABLE;
+    $sql = "SELECT * FROM `{$SCHOOL_MONITOR_TABLE}` WHERE `key` = 'wechselintervall'";
+    $result = mysql_query($sql);
+    $row = mysql_fetch_object($result);
+    $wechselintervall = $row->value;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,20 +22,23 @@
             })
             .then(response => {
 				console.log(response);
-                if(response.ok) {
-                    alert("Erfolgreich")
-                } else {
-					response.text()
-					.then(text => {
-						alert("Fehler: " + text)
-					})
-                }
+                response.text()
+                .then(text => {
+                    if text.lower() == "erfolgreich" {
+                        alert("Wechselinterval erfolgreich geändert!");
+                    } else {
+                        alert("Wechselinterval konnte nicht geändert werden!");
+                    }
+                })
             })
         }
     </script>
 </head>
 <body>
-    <button id="btn-change-view-interval-on-school-monitor" class="btn btn-primary">Schulmonitor: Wechselinterval ändern</button>
+    <div class="card">
+        <p>Aktuelles Wechselinterval: <?php $wechselintervall ?></p>
+        <button id="btn-change-view-interval-on-school-monitor" class="btn btn-primary">Schulmonitor: Wechselinterval ändern</button>
+    </div>
 	<script>
 		document.getElementById("btn-change-view-interval-on-school-monitor").onclick = () => {
 			console.log("onclick!");

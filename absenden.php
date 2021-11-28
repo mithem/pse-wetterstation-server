@@ -1,14 +1,11 @@
 <?php
-	$dbName = "wetterstation";
+	global $CONNECTED_DB;
 	$tableName = "messwerte";
 
-	$db = mysqli_connect("localhost", "root", "", $dbName);
-	if(!$db)
+	if(!$CONNECTED_DB)
 	{
 	  exit("Verbindungsfehler: ".mysqli_connect_error());
 	}
-
-
 
 	require_once("CWerte.php");
 	require_once("DAOWerte.php");
@@ -24,7 +21,7 @@
 		echo "<br />";
 		$sql = "INSERT INTO {$tableName} (temperatur, feuchtigkeit, wind, niederschlag, sonnenstunden, druck, zeit) VALUES ('{$wert->getTemp()}', '{$wert->getFeuchtigkeit()}', '{$wert->getWind()}', '{$wert->getNiederschlag()}', '{$wert->getSonnenstunden()}', '{$wert->getDruck()}', '{$wert->getZeit()}')";
 
-		if (mysqli_query($db, $sql)) {
+		if (mysqli_query($CONNECTED_DB, $sql)) {
 			echo "erfolgreich<br />";
 		} else {
 			echo "fehlerhaft";

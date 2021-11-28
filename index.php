@@ -1,15 +1,13 @@
 <?php
-	$db = mysqli_connect("localhost", "root", "", "Wetterstation");
-	if(!$db)
-	{
-	  exit("Verbindungsfehler: ".mysqli_connect_error());
-	}
-
-
-
 	require_once("CWerte.php");
 	require_once("DAOWerte.php");
 	require_once("CParser.php");
+	require_once("constants.php");
+
+	global $CONNECTED_DB;
+	if(!$CONNECTED_DB) {
+	  exit("Verbindungsfehler: ".mysqli_connect_error());
+	}
 
 	$meinWert = new CWerte();
 	$meineDB = new DAOWerte();
