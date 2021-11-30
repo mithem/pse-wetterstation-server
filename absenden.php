@@ -2,6 +2,8 @@
 	global $CONNECTED_DB;
 	$tableName = "messwerte";
 
+	// TODO: Use query (?csv=temp;niederschlag;...) instead of local file
+
 	if(!$CONNECTED_DB)
 	{
 	  exit("Verbindungsfehler: ".mysqli_connect_error());
