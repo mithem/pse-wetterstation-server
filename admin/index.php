@@ -1,10 +1,3 @@
-<?php
-    global $SCHOOL_MONITOR_TABLE;
-    $sql = "SELECT * FROM `{$SCHOOL_MONITOR_TABLE}` WHERE `key` = 'wechselintervall'";
-    $result = mysql_query($sql);
-    $row = mysql_fetch_object($result);
-    $wechselintervall = $row->value;
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,28 +10,25 @@
         function changeViewIntervalOnSchoolMonitor() {
 			console.log("changing view interval");
             const interval = prompt("Neues Wechselinterval? [Sekunden]")
-            fetch("/admin/schulMonitorWechselintervalAendern.php?interval=" + interval, {
+			const url = "/admin/schulMonitorWechselIntervalAendern.php?interval=" + interval
+            fetch(url, {
                 method: "POST"
             })
             .then(response => {
-				console.log(response);
-                response.text()
-                .then(text => {
-                    if text.lower() == "erfolgreich" {
-                        alert("Wechselinterval erfolgreich geändert!");
-                    } else {
-                        alert("Wechselinterval konnte nicht geändert werden!");
-                    }
-                })
+				response.text()
+				.then(text => {
+					if (response.ok) {
+						alert(text);
+					} else {
+						alert("Fehler: " + text);
+					}
+				})
             })
         }
     </script>
 </head>
 <body>
-    <div class="card">
-        <p>Aktuelles Wechselinterval: <?php $wechselintervall ?></p>
-        <button id="btn-change-view-interval-on-school-monitor" class="btn btn-primary">Schulmonitor: Wechselinterval ändern</button>
-    </div>
+    <button id="btn-change-view-interval-on-school-monitor" class="btn btn-primary">Schulmonitor: Wechselinterval ändern</button>
 	<script>
 		document.getElementById("btn-change-view-interval-on-school-monitor").onclick = () => {
 			console.log("onclick!");
