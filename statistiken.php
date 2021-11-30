@@ -60,15 +60,12 @@
 			text-decoration: none;
 		}
 	</style>
-	<script>
+	<!--<script>
 		function initChart() {
-			<?php
-				echo "prompt('hello, world!')";
-			?>
 			let measurements = [{timestamp: 1000000, temperature: 20.1}, {timestamp: 1000001, temperature: 21.1}, {timestamp: 1000002, temperature: 21.5}, {timestamp: 1000003, temperature: 22.0}, {timestamp: 1000004, temperature: 24}]
 			let timestamps = measurements.map(measurement => measurement.timestamp);
 			let temperatures = measurements.map(measurement => measurement.temperature); // viele Elemente könnten via Internet ohnehin nicht übermittelt werden
-			let label = "Temperatur";
+			let label = $_POST['Typ'];
 			var ctx = document.getElementById('chart').getContext('2d');
 			var myChart = new Chart(ctx, {
 				type: 'line',
@@ -84,29 +81,69 @@
 				}
 			});
 		}
-	</script>
-</head>
+	</script>-->
+
 <body>
+</div>
 	<nav class="navbar">
 		<a class="title" href="/" >Wetter Lohmar</a>
 		<div class="spacer"></div>
 		<a class="btn btn-primary" href="/">Aktuelles Wetter</a>
+		<a class="btn btn-primary" href="/aendern.php">Statistik ändern</a>
 	</nav>
 	<div class="root">
 		<div class="group-row">
+			<div class="settings-container">
+				<form action="" method="post"> 
+					<select class="form-select" name="Zeitraum[]">
+						<option value="" disabled Select>Zeitraum auswählen</option>
+						<option value="heute" selected>Heute</option>
+						<option value="eineWoche">diese Woche</option>
+						<option value="einMonat">dieserMonat</option>
+						<option value="einJahr">dieses Jahr</option>
+						<option value="beginn">seit Beginn der Messung</option>
+					</select>
+					<select class="form-select" name="Wert[]">
+						<option value="" disabled Select>Typ auswählen</option>
+						<option value="temperatur" selected>Temperatur</option>
+						<option value="niederschlag">Niederschlag</option>
+						<option value="sonnenstunden">Sonnenstunden</option>
+						<option value="windgeschwindigkeit">Windgeschwindigkeit</option>
+						<option value="luftfeuchtigkeit">Luftfeuchtigkeit</option>
+						<option value="luftdruck">Luftdruck</option>
+					</select>
+					<input type="Submit" name="submitTyp" value="Wählen">
+				</form>
+				<?php
+					if(isset($_POST['submitTyp'])){
+						if(!empty($_POST['Wert'])) {
+							foreach($_POST['Wert'] as $selected){
+								echo '  ' . $selected;
+							} 
+						}
+					}
+					if(isset($_POST['submitTyp'])){
+						if(!empty($_POST['Zeitraum'])) {
+							foreach($_POST['Zeitraum'] as $selected){
+								echo '  ' . $selected;
+							} 
+						}
+					}						
+				?>
+			</div>
 			<div class="chart-container">
 				<canvas id="chart"></canvas>
-			</div>
-			<div class="settings-container">
-				<button class="btn btn-primary">Zeitraum &auml;ndern</button>
-				<select class="form-select">
-					<option value="temperatur" selected>Temperatur</option>
-					<option value="niederschlag">Niederschlag</option>
-					<option value="sonnenstunden">Sonnenstunden</option>
-					<option value="windgeschwindigkeit">Windgeschwindigkeit</option>
-					<option value="luftfeuchtigkeit">Luftfeuchtigkeit</option>
-					<option value="luftdruck">Luftdruck</option>
-				</select>
+				<!-- Area Chart -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary"></h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="myAreaChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
 			</div>
 		</div>
 	</div>
