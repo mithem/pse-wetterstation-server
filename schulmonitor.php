@@ -46,8 +46,7 @@
 		body#page-top {
 			background-color: #f8f9fc;
 		}
-		
-		
+
 	</style>
 
     <title>PSE Wetterstation</title>
@@ -72,7 +71,7 @@
 		width: 80%;
 		border-top:20px solid green;
 		/*flex-grow: 1;*/
-		margin: 0px 20px;
+		margin: 0px 60px;
 		align.items: center;
 	}
 	@media only screen and (max-width: 800px) {
@@ -126,9 +125,9 @@
 				<div class="col-xl-4 col-md-4 mb-4">
 					<div class="card kachel mitte">
 							<div class="card-body schrift">
-								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style= "font-size:x-large; font-weight: bold">
+								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style= "font-size:50px; font-weight: bold">
 								   Temperatur</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800" style= "font-size:xx-large"><?php echo $meinWert->getTemp()."°C"; ?></div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800 " style= "font-size:50px"><?php echo $meinWert->getTemp()." °C"; ?></div>
 							</div>
 					</div>
 				</div>
@@ -136,16 +135,22 @@
 				<div class="col-xl-4 col-md-4 mb-4">
 					<div class="card kachel mitte">
 							<div class="card-body">
-								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style= "font-size:x-large; font-weight: bold">
+								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style= "font-size:50px; font-weight: bold">
 								   Niederschlag</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800" style= "font-size:xx-large"><?php
+								<div class="h5 mb-0 font-weight-bold text-gray-800" style= "font-size:50px"><?php
 								switch($meinWert->getNiederschlag()){
 									case 0:
 										echo "kein Niederschlag";
+										break;
 									case 1:
 										echo "Regen";
+										break;
 									case 2:
 										echo "starker Regen";
+										break;
+									default: 
+										echo "Sorry. Keine Angaben möglich";
+									
 								}
 									 ; ?></div>
 							</div>
@@ -155,9 +160,9 @@
 				<div class="col-xl-4 col-md-4 mb-4">
 					<div class="card kachel mitte">
 							<div class="card-body">
-								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style= "font-size:x-large; font-weight: bold">
+								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style= "font-size:50px; font-weight: bold">
 								   Wind</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800" style= "font-size:xx-large"><?php echo $meinWert->getWind()."km/h"; ?></div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800" style= "font-size: 50px"><?php echo $meinWert->getWind()." km/h"; ?></div>
 							</div>
 					</div>
 				</div>
