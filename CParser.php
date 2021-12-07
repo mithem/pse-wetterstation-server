@@ -30,7 +30,7 @@ class CParser {
 		return $werteArr;
 	}
 	
-	function parse() {
+	function parseCSVFile() {
 		$row = 0;
 		$werte = [];
 		if (($handle = fopen("test.csv", "r")) !== FALSE) {
@@ -49,6 +49,21 @@ class CParser {
 		  }
 		  fclose($handle);
 		}
+		return $werte;
+	}
+	
+	function parseURLString() {
+		$query = parse_url($_SERVER["REQUEST_URI"])["query"];
+		$split = split($query, ";");
+		
+		$werte = new CWerte();
+		$werte->setTemp($split[0]);
+		$werte->setNiederschlag($split[1]);
+		$werte->setSonnenstunden($split[2]);
+		$werte->setFeuchtigkeit($split[3]);
+		$werte->setWind($split[4]);
+		$werte->setDruck($split[5]);
+		$werte->setZeit($split[6]);
 		return $werte;
 	}
 }

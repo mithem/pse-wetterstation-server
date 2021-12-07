@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS wetterstation;
+CREATE TABLE IF NOT EXISTS messwerte (temperatur double, niederschlag int, sonnenstunden int, feuchtigkeit double, wind double, druck double, zeit TIMESTAMP);
