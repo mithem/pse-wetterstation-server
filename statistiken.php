@@ -94,7 +94,7 @@
 	<div class="root">
 		<div class="group-row">
 			<div class="settings-container">
-				<form action="" method="post"> 
+
 					<select class="form-select" name="Zeitraum[]">
 						<option value="" disabled Select>Zeitraum auswählen</option>
 						<option value="heute" selected>Heute</option>
@@ -112,10 +112,14 @@
 						<option value="luftfeuchtigkeit">Luftfeuchtigkeit</option>
 						<option value="luftdruck">Luftdruck</option>
 					</select>
-					<input type="Submit" name="submitTyp" value="Wählen">
-				</form>
+					<!--document.getElementById('abc').value
+					document.getElementById('def').value
+					Muss noch in Button eingefügt werden
+					-->
+					<input type="button" name="submitTyp2" value="Wählen" onClick="window.location.href='/statistiken.php?zeit=?wert='">
+
 				<?php
-					if(isset($_POST['submitTyp'])){
+					/*if(isset($_POST['submitTyp'])){
 						if(!empty($_POST['Wert'])) {
 							foreach($_POST['Wert'] as $selected){
 								echo '  ' . $selected;
@@ -129,7 +133,7 @@
 							} 
 						}
 					}						
-				?>
+				?>*/
 			</div>
 			<div class="chart-container">
 				<canvas id="chart"></canvas>
