@@ -149,7 +149,7 @@
 										echo "sehr geringer Niederschlag";
 										break;
 									case 3:
-										echo: "kein Niederschlag";
+										echo "kein Niederschlag";
 									default: 
 										echo "Sorry. Keine Angaben möglich";
 									
