@@ -140,14 +140,16 @@
 								<div class="h5 mb-0 font-weight-bold text-gray-800" style= "font-size:50px"><?php
 								switch($meinWert->getNiederschlag()){
 									case 0:
-										echo "kein Niederschlag";
-										break;
-									case 1:
-										echo "Regen";
-										break;
-									case 2:
 										echo "starker Regen";
 										break;
+									case 1:
+										echo "geringer Niederschlag";
+										break;
+									case 2:
+										echo "sehr geringer Niederschlag";
+										break;
+									case 3:
+										echo: "kein Niederschlag";
 									default: 
 										echo "Sorry. Keine Angaben möglich";
 									

@@ -146,14 +146,16 @@
 								<?php 
 									switch($meinWert->getNiederschlag()){
 										case 0:
-											echo "kein Regen";
+											echo "starker Niederschlag";
 											break;
 										case 1:
-											echo "geringer Regen";
+											echo "geringer Niederschlag";
 											break;
 										case 2:
-											echo "starker Regen";
+											echo "sehr geringer Niederschlag";
 											break;
+										case 3:
+											echo "kein Niederschlag";
 										default: 
 											echo "Sorry. Keine Angaben möglich";
 										
