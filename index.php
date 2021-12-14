@@ -156,6 +156,7 @@
 											break;
 										case 3:
 											echo "kein Niederschlag";
+											break;
 										default: 
 											echo "Sorry. Keine Angaben möglich";
 										
@@ -195,7 +196,25 @@
 									<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
 										Luftdruck
 									</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $meinWert->getDruck(), " hPa"; ?></div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+									<?php 
+									switch($meinWert->getNiederschlag()){
+										case 0:
+											echo "978";
+											break;
+										case 1:
+											echo "981";
+											break;
+										case 2:
+											echo "982";
+											break;
+										case 3:
+											echo rand(982, 984);
+											break;
+										default:
+											echo "Sorry. Keine Angaben möglich";
+									}
+									echo " hPa"; ?></div>
 							</div>
                         </div>
 					</div>
