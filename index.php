@@ -142,7 +142,22 @@
 							<div class="card-body">
 								<div class="text-xs font-weight-bold text-success text-uppercase mb-1">
 									Niederschlag</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $meinWert->getNiederschlag();?></div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">
+								<?php 
+									switch($meinWert->getNiederschlag()){
+										case 0:
+											echo "kein Regen";
+											break;
+										case 1:
+											echo "geringer Regen";
+											break;
+										case 2:
+											echo "starker Regen";
+											break;
+										default: 
+											echo "Sorry. Keine Angaben möglich";
+										
+								};?></div>
 							</div>
                         </div>
 					</div>	
