@@ -76,10 +76,16 @@ $wert = $dao->getWerte($CONNECTED_DB);
 							$unit = "mm";
 							$value = $wert->getNiederschlag();
 							switch($value) {
-								case 0, 1:
+								case 0:
+								case 1:
 									$imgUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1A-xyJyReatXCyzxbahMF012NPNjtD_Lg3w&usqp=CAU";
-								case 2,3:
-									$imgUrl = "";
+									break;
+								case 2:
+									$imgUrl = "https://i.ytimg.com/vi/j9nhecEWMuE/maxresdefault.jpg";
+									break;
+								case 3:
+								default:
+									$imgUrl = "https://imonkey-blog.imgix.net/blog/wp-content/uploads/2015/11/11080124/shutterstock_192205328.jpg";
 							}
 							break;
 						case "wind":
