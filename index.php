@@ -12,7 +12,7 @@
 	$meinWert = new CWerte();
 	$meineDB = new DAOWerte();
 	
-	$meinWert = $meineDB->getWerte($db);
+	$meinWert = $meineDB->getWerte($CONNECTED_DB);
 
 ?>
 
@@ -44,6 +44,7 @@
 		body#page-top {
 			background-color: #f8f9fc;
 		}
+
 	</style>
 
     <title>PSE Wetterstation</title>
@@ -81,6 +82,18 @@
 			font-size: 2rem;
 		}
 	}
+	.h5{
+		padding-top: 20px;
+		font-size: 45px;
+		text-align: center;
+	}
+	.text-xs{
+		color: #0D6EFD!important;
+		font-weight: bold;
+		font-size: 40px;
+		text-align: center;
+	}
+
 	</style>
 
 </head>
@@ -120,7 +133,7 @@
 							<div class="card-body">
 								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
 								   Temperatur</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $meinWert->getTemp(); ?></div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $meinWert->getTemp(), " °C"; ?></div>
 							</div>
                         </div>
 
@@ -129,7 +142,7 @@
 							<div class="card-body">
 								<div class="text-xs font-weight-bold text-success text-uppercase mb-1">
 									Niederschlag</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $meinWert->getNiederschlag(); ?></div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $meinWert->getNiederschlag();?></div>
 							</div>
                         </div>
 					</div>	
@@ -139,7 +152,7 @@
 								<div class="text-xs font-weight-bold text-info text-uppercase mb-1">
 								Sonnenstunden
 								</div>        
-								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $meinWert->getSonnenstunden(); ?></div>								
+								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $meinWert->getSonnenstunden(), " h"; ?></div>								
 							</div>
                         </div>
 						<div class="card kachel">
@@ -147,7 +160,7 @@
 								<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
 									Wind
 								</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $meinWert->getWind(); ?></div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $meinWert->getWind(), " km/h"; ?></div>
 							</div>
 						</div>
 					</div>
@@ -157,7 +170,7 @@
 								<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
 									Luftfeuchtigkeit
 								</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $meinWert->getFeuchtigkeit(); ?></div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $meinWert->getFeuchtigkeit(), " %"; ?></div>
 							</div>
                         </div>
 							<div class="card kachel">
@@ -165,7 +178,7 @@
 									<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
 										Luftdruck
 									</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $meinWert->getDruck(); ?></div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $meinWert->getDruck(), " hPa"; ?></div>
 							</div>
                         </div>
 					</div>
