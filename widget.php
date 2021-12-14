@@ -1,6 +1,28 @@
+<?php
+require_once("constants.php");
+require_once("DAOWerte.php");
+require_once("CWerte.php");
+global $CONNECTED_DB;
+
+$supported = array(
+	0 => "temperatur",
+	1 => "niederschlag",
+	2 => "wind",
+);
+
+$datentyp = $_GET["datentyp"];
+if ($datentyp == null || !in_array($datentyp, $supported)) {
+	header("Location: " . "/widget.php?datentyp=temperatur");
+	echo "kein g&uuml;ltiger Datentyp";
+	exit;
+}
+
+$dao = new DAOWerte();
+$wert = $dao->getWerte($CONNECTED_DB);
+?>
 <html>
 <head>
-	<title>Test</title>
+	<title>Widget</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 	<style>
 		.body {
@@ -31,49 +53,56 @@
 	</style>
 </head>
 <body>
-<div class="card-container-column">
-<div class="card-container-row">
-<div class="card">
-<img src="https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2020/07/solar_orbiter_s_first_view_of_the_sun2/22133123-1-eng-GB/Solar_Orbiter_s_first_view_of_the_Sun_pillars.png" class="card-image-top" />
-<div class="card-body">
-	<p class="card-text">22&deg;</p>
-</div>
- <nav>
-      <ul class="pagination">
-        <li class="page-item active"><a class="page-link" href="test.html&typ=temperatur">Temp.</a></li>
-        <li class="page-item"><a class="page-link" href="test.html?typ=niederschlag">Niederschl.</a></li>
-        <li class="page-item"><a class="page-link" href="test.html&typ=luft">Windgeschw.</a></li>
-      </ul>
-</nav>
-</div>
-<div class="card">
-<img src="https://geographical.co.uk/media/k2/items/cache/8e4e30c8fc08507de1b0b5afc7d32a85_XL.jpg" class="card-image-top" />
-<div class="card-body">
-	<p class="card-text">0 mm</p>
-</div>
- <nav>
-      <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="test.html&typ=temperatur">Temp.</a></li>
-        <li class="page-item active"><a class="page-link" href="test.html?typ=niederschlag">Niederschl.</a></li>
-        <li class="page-item"><a class="page-link" href="test.html&typ=luft">Windgeschw.</a></li>
-      </ul>
-</nav>
-</div>
-<div class="card">
-<img src="https://www.breeze-technologies.de/wp-content/uploads/2019/06/holger-link-748973-unsplash-1030x687.jpg" class="card-image-top" />
-<div class="card-body">
-	<p class="card-text">2 m/s</p>
-</div>
- <nav>
-      <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="test.html&typ=temperatur">Temp.</a></li>
-        <li class="page-item"><a class="page-link" href="test.html?typ=niederschlag">Niederschl.</a></li>
-        <li class="page-item active"><a class="page-link" href="test.html&typ=luft">Windgeschw.</a></li>
-      </ul>
-</nav>
-</div>
-</div>
-</div>
-</div>
+	<div class="card-container-column">
+		<div class="card-container-row">
+			<div class="card">
+				<?php
+					switch($datentyp) {
+						case "temperatur":
+							$unit = "&deg;";
+							$value = $wert->getTemp();
+							switch($value) {
+								case $value <= 3:
+									$imgUrl = "https://images6.fanpop.com/image/photos/43100000/Winter-gdragon612-43123103-1000-1166.jpg";
+									break;
+								case $value >= 27:
+									$imgUrl = "https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2020/07/solar_orbiter_s_first_view_of_the_sun2/22133123-1-eng-GB/Solar_Orbiter_s_first_view_of_the_Sun_pillars.png";
+									break;
+								default:
+									$imgUrl = "https://imonkey-blog.imgix.net/blog/wp-content/uploads/2015/11/11080124/shutterstock_192205328.jpg";
+							}
+							break;
+						case "niederschlag":
+							$unit = "mm";
+							$value = $wert->getNiederschlag();
+							switch($value) {
+								case 0, 1:
+									$imgUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1A-xyJyReatXCyzxbahMF012NPNjtD_Lg3w&usqp=CAU";
+								case 2,3:
+									$imgUrl = "";
+							}
+							break;
+						case "wind":
+							$imgUrl = "https://www.lufft.com/blog/app/uploads/2020/01/strong_wind.jpg";
+							$unit = "km/h";
+							$value = $wert->getWind();
+							break;
+					}
+				?>
+				<img src=<?php echo "${imgUrl}" ?> class="card-image-top" />
+				<div class="card-body">
+					<p class="card-text"><?php echo $value . " " . $unit; ?></p>
+				</div>
+				 <nav>
+					  <ul class="pagination">
+						<li class="page-item <?php echo $datentyp == "temperatur" ? "active" : "" ?>"><a class="page-link" href="widget.php?datentyp=temperatur">Temp.</a></li>
+						<li class="page-item <?php echo $datentyp == "niederschlag" ? "active" : "" ?>"><a class="page-link" href="widget.php?datentyp=niederschlag">Niederschl.</a></li>
+						<li class="page-item <?php echo $datentyp == "wind" ? "active" : "" ?>"><a class="page-link" href="widget.php?datentyp=wind">Wind</a></li>
+					  </ul>
+				</nav>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

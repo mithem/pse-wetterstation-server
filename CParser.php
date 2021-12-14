@@ -54,7 +54,8 @@ class CParser {
 	
 	function parseURLString() {
 		$query = parse_url($_SERVER["REQUEST_URI"])["query"];
-		$split = split($query, ";");
+		$csv = str_replace("csv=", "", $query);
+		$split = explode(";", $csv);
 		
 		$werte = new CWerte();
 		$werte->setTemp($split[0]);
@@ -63,7 +64,7 @@ class CParser {
 		$werte->setFeuchtigkeit($split[3]);
 		$werte->setWind($split[4]);
 		$werte->setDruck($split[5]);
-		$werte->setZeit($split[6]);
+		$werte->setZeit(time());
 		return $werte;
 	}
 }
