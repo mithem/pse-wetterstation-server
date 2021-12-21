@@ -16,6 +16,7 @@
 	
 	$meinWert = $meineDB->getWerte($db);
 
+	$sonnenstunden = $meineDB->calculateSunHoursForToday($CONNECTED_DB);
 ?>
 
 <!DOCTYPE html>
@@ -164,8 +165,8 @@
 					<div class="card kachel mitte">
 							<div class="card-body">
 								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style= "font-size:50px; font-weight: bold">
-								   Wind</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800" style= "font-size: 50px"><?php echo $meinWert->getWind()." km/h"; ?></div>
+								   Sonnenstunden</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800" style= "font-size: 50px"><?php echo $sonnenstunden; ?> h</div>
 							</div>
 					</div>
 				</div>
