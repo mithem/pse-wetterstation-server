@@ -13,7 +13,8 @@
 	$meineDB = new DAOWerte();
 	
 	$meinWert = $meineDB->getWerte($CONNECTED_DB);
-
+	
+	$sonnenstunden = $meineDB->calculateSunHoursForToday($CONNECTED_DB);
 ?>
 
 <!DOCTYPE html>
@@ -168,17 +169,17 @@
 						<div class="card kachel">
 							<div class="card-body">
 								<div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-								Sonnenstunden
+								Lichtstaerke
 								</div>        
-								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $meinWert->getSonnenstunden(), " h"; ?></div>								
+								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $meinWert->getLichtstaerke(); ?> Lux</div>								
 							</div>
                         </div>
 						<div class="card kachel">
 							<div class="card-body">
 								<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-									Wind
+									Sonnenstunden
 								</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $meinWert->getWind(), " km/h"; ?></div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $sonnenstunden, " h"; ?></div>
 							</div>
 						</div>
 					</div>
@@ -198,22 +199,7 @@
 									</div>
 									<div class="h5 mb-0 font-weight-bold text-gray-800">
 									<?php 
-									switch($meinWert->getNiederschlag()){
-										case 0:
-											echo "978";
-											break;
-										case 1:
-											echo "981";
-											break;
-										case 2:
-											echo "982";
-											break;
-										case 3:
-											echo rand(982, 984);
-											break;
-										default:
-											echo "Sorry. Keine Angaben möglich";
-									}
+									echo $meinWert->getDruck();
 									echo " hPa"; ?></div>
 							</div>
                         </div>
