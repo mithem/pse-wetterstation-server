@@ -73,25 +73,42 @@ $wert = $dao->getWerte($CONNECTED_DB);
 							}
 							break;
 						case "niederschlag":
-							$unit = "mm";
-							$value = $wert->getNiederschlag();
-							switch($value) {
+							$unit = "";
+							switch($wert->getNiederschlag()) {
 								case 0:
-								case 1:
+									$value = "starker Regen";
 									$imgUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1A-xyJyReatXCyzxbahMF012NPNjtD_Lg3w&usqp=CAU";
 									break;
+								case 1:
+									$value = "geringer Niederschlag";
+									$imgUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSRaIsflHsrv88uni6m1suR65ZDi9DiWorBg&usqp=CAU";
+									break;
 								case 2:
+									$value = "sehr geringer Niederschlag";
 									$imgUrl = "https://i.ytimg.com/vi/j9nhecEWMuE/maxresdefault.jpg";
 									break;
 								case 3:
-								default:
+									$value = "kein Niederschlag";
 									$imgUrl = "https://imonkey-blog.imgix.net/blog/wp-content/uploads/2015/11/11080124/shutterstock_192205328.jpg";
+									break;
+								default:
+									$imgUrl = "https://www.deiters.de/media/catalog/product/cache/all/image/1600x/040ec09b1e35df139433887a97daa66f/0/0/008323.jpg";
+									$value = "Sorry. Keine Angaben möglich";
 							}
 							break;
 						case "wind":
-							$imgUrl = "https://www.lufft.com/blog/app/uploads/2020/01/strong_wind.jpg";
-							$unit = "km/h";
 							$value = $wert->getWind();
+							$unit = "km/h";
+							switch($value) {
+								case $value <= 5:
+									$imgUrl = "https://thumbs.dreamstime.com/b/spring-green-field-blue-sky-lot-white-clouds-fresh-lush-grass-swaying-light-wind-summer-meadow-countryside-180643356.jpg";
+									break;
+								case $value >= 15:
+									$imgUrl = "https://www.lufft.com/blog/app/uploads/2020/01/strong_wind.jpg";
+									break;
+								default:
+									$imgUrl = "http://www.vergnet.co.uk/wp-content/uploads/2014/11/Vergnet-GEV-MP-R-Wind-Turbine-1024x683.jpg";
+							}							
 							break;
 					}
 				?>
