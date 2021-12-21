@@ -5,7 +5,7 @@ class CWerte  {
 	
 	var $temp;
 	var $niederschlag;
-	var $sonnenstunden;
+	var $lichtstaerke;
 	var $feuchtigkeit;
 	var $wind;
 	var $druck;
@@ -32,15 +32,13 @@ class CWerte  {
 	
 	
 	
-	function getSonnenstunden() {
-		return $this->sonnenstunden;
+	function getLichtstaerke() {
+		return $this->lichtstaerke;
 	}
 	
-	function setSonnenstunden($neueSonnenstunden) {
-		$this->sonnenstunden = $neueSonnenstunden;
+	function setLichtstaerke($neueLichtstaerke) {
+		$this->lichtstaerke = $neueLichtstaerke;
 	}
-	
-	
 	
 	function getFeuchtigkeit() {
 		return $this->feuchtigkeit;
@@ -81,7 +79,7 @@ class CWerte  {
 	}
 	
 	function toString() {
-		return "CWerte(temp: " . $this->temp . ", nieder: $this->niederschlag, sonnenstunden: $this->sonnenstunden, feuchtigkeit: $this->feuchtigkeit, wind: $this->wind, druck: $this->druck, zeit: $this->zeit)";
+		return "CWerte(temp: " . $this->temp . ", nieder: $this->niederschlag, lichtstaerke: $this->lichtstaerke, feuchtigkeit: $this->feuchtigkeit, wind: $this->wind, druck: $this->druck, zeit: $this->zeit)";
 	}
 }
 
