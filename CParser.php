@@ -57,13 +57,16 @@ class CParser {
 		$csv = str_replace("csv=", "", $query);
 		$split = explode(";", $csv);
 		
+		$randomWind = rand(0, 30);
+		$randomPressure = rand(950, 1050);
+		
 		$werte = new CWerte();
 		$werte->setTemp($split[0]);
 		$werte->setNiederschlag($split[1]);
-		$werte->setSonnenstunden($split[2]);
+		$werte->setLichtstaerke($split[2]);
 		$werte->setFeuchtigkeit($split[3]);
-		$werte->setWind($split[4]);
-		$werte->setDruck($split[5]);
+		$werte->setWind($randomWind);
+		$werte->setDruck($randomPressure);
 		$werte->setZeit(time());
 		return $werte;
 	}
