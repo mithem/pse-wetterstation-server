@@ -25,17 +25,17 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 	<link href="https://cdn.jsdelivr.net/npm/sb-admin-2@3.3.8/dist/css/sb-admin-2.css" rel="stylesheet" />
 	
-	<!--Fonts-->
-	<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	<!--Fonts
+	
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-	
+	-->
 	<script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
-	<script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
-	<script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
-	<link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
-	<link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
+  <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
+  <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
 	
 	<style>
 		#container {
@@ -123,10 +123,8 @@
 						<option value="" disabled Select>Typ auswählen</option>
 						<option value="temperatur" >Temperatur</option>
 						<option value="niederschlag">Niederschlag</option>
-						<option value="sonnenstunden">Sonnenstunden</option>
-						<option value="windgeschwindigkeit">Windgeschwindigkeit</option>
-						<option value="luftfeuchtigkeit">Luftfeuchtigkeit</option>
-						<option value="luftdruck">Luftdruck</option>
+						<option value="sonnenstunden">Lichtstaerke</option>
+						<option value="wind">Windgeschwindigkeit</option>
 					</select>
 					
 					<script>
@@ -161,9 +159,13 @@
 						// map data for the third series, take x from the zero column and value from the third column of data set
 						var thirdSeriesData = dataSet.mapAs({ x: 0, value: 3 });
 						break;
+					case 'wind':
+						var fourthSeriesData = dataSet.mapAs({ x: 0, value: 4 });
+						break;
 					default:
 						// map data for the first series, take x from the zero column and value from the first column of data set
 						var firstSeriesData = dataSet.mapAs({ x: 0, value: 1 });
+						break;
 				}
 						// create line chart
 						var chart = anychart.line();
@@ -192,13 +194,17 @@
 							chart.yAxis().title('Temperatur in Celsius');
 							break;
 						case 'niederschlag':
-							chart.yAxis().title('Wie stark hat es geregnet)');
+							chart.yAxis().title('3:kein Regen 2:wenig Regen 1:viel Regen 0:starker Regen');
 							break;
 						case 'sonnenstunden':
-							chart.yAxis().title('Sonnenstnden in h');
+							chart.yAxis().title('Lichtstaerke in Lux');
+							break;
+						case 'wind':
+							chart.yAxis().title('Windgeschwindigkeit in m/s');
 							break;
 						default:
-						chart.yAxis().title('Number of Bottles Sold (thousands)');
+						chart.yAxis().title('Temperatur in Celsius');
+						break;
 				  }
 				  chart.xAxis().labels().padding(5);
 				  // create first series with mapped data
@@ -233,6 +239,17 @@
 					.anchor('left-center')
 					.offsetX(5)
 					.offsetY(5);
+					
+					// create fourth series with mapped data
+				  var fourthSeries = chart.line(fourthSeriesData);
+				  fourthSeries.name('Windgeschwindigkeit');
+				  fourthSeries.hovered().markers().enabled(true).type('circle').size(4);
+				  fourthSeries
+					.tooltip()
+					.position('right')
+					.anchor('left-center')
+					.offsetX(5)
+					.offsetY(5);
 
 				  // turn the legend on
 				  chart.legend().enabled(true).fontSize(13).padding([0, 0, 10, 0]);
@@ -242,22 +259,32 @@
 				  // initiate chart drawing
 				  chart.draw();
 				});
-					//Datenbank ansprechen
+				
 				var temp = <?php echo json_encode($meinWert->getTemp()); ?>;
 				var nieder = <?php echo json_encode($meinWert->getNiederschlag()); ?>;
-				var sonn = <?php echo json_encode($meinWert->getSonnenstunden()); ?>;
+				var licht = <?php echo json_encode($meinWert->getLichtstaerke()); ?>;
+				var wind = <?php echo json_encode($meinWert->getWind()); ?>;
+				//var temp-1 = <?php echo json_encode($meinWert->getTemp()); ?>;
+				//var nieder-1 = <?php echo json_encode($meinWert->getTemp()); ?>;
+				//var licht-1 = <?php echo json_encode($meinWert->getTemp()); ?>;
+				//var temp-2 = <?php echo json_encode($meinWert->getNiederschlag()); ?>;
+				//var nieder-2 = <?php echo json_encode($meinWert->getNiederschlag()); ?>;
+				//var licht-2 = <?php echo json_encode($meinWert->getNiederschlag()); ?>;
+				//var temp-3 = <?php echo json_encode($meinWert->getLichtstaerke()); ?>;
+				//var nieder-3 = <?php echo json_encode($meinWert->getLichtstaerke()); ?>;
+				//var lciht-3 = <?php echo json_encode($meinWert->getLichtstaerke()); ?>;
+				
 				function getData() {
 				  return [
-					['Montag', 5, 2.3, 2.8],
-					['Dienstag', 7.1, 4.0, 4.1],
-					['Mittwoch', 8.5, 6.2, 5.1],
-					['Donnerstag', 9.2, 11.8, 6.5],
-					['Feitag', 10.1, 13.0, 12.5],
-					['Samstag', 11.6, 13.9, 18.0],
-					['Sonntag', temp, 18.0, 21.0],
-				  ];
+					['1986', 3.6, 2.3, 2.8, 1],
+					['1987', 7.1, 4.0, 4.1, 6],
+					['1988', 8.5, 6.2, 5.1, 4],
+					['1989', 9.2, 11.8, 6.5, 9],
+					['1990', 10.1, 13.0, 12.5, 13],
+					['1991', 11.6, 13.9, 18.0, 16],
+					['1992', temp, nieder, licht,wind],
+					];
 				}
-  
 		</script>
 		<div class="row" style="height:10px"></div>
 </body>

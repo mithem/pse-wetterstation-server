@@ -118,7 +118,7 @@
 						
 						
 						<div class="spacer"></div>
-						<a class="btn btn-primary" href="/statistiken.php">Statistiken</a>
+						<a class="btn btn-primary" href="/statistiken.php" style="font-size: 2rem">Statistiken</a>
 					</nav>
                 <!-- Begin Page Content -->
                 <div class="container-column">
