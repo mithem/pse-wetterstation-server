@@ -23,7 +23,7 @@
 
 	echo $wert->toString();
 	echo "<br />";
-	$sql = "INSERT INTO {$tableName} (temperatur, feuchtigkeit, wind, niederschlag, sonnenstunden, druck, zeit) VALUES ('{$wert->getTemp()}', '{$wert->getFeuchtigkeit()}', '{$wert->getWind()}', '{$wert->getNiederschlag()}', '{$wert->getSonnenstunden()}', '{$wert->getDruck()}', UNIX_TIMESTAMP('{$wert->getZeit()}'))";
+	$sql = "INSERT INTO {$tableName} (temperatur, feuchtigkeit, wind, niederschlag, lichtstaerke, druck, zeit) VALUES ('{$wert->getTemp()}', '{$wert->getFeuchtigkeit()}', '{$wert->getWind()}', '{$wert->getNiederschlag()}', '{$wert->getLichtstaerke()}', '{$wert->getDruck()}', UNIX_TIMESTAMP('{$wert->getZeit()}'))";
 	
 	$result = mysqli_query($CONNECTED_DB, $sql);
 
