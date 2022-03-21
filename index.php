@@ -14,7 +14,8 @@
 	
 	$meinWert = $meineDB->getWerte($CONNECTED_DB);
 	
-	$sonnenstunden = $meineDB->calculateSunHoursForToday($CONNECTED_DB);
+	$sonnenstundenHeute = $meineDB->calculateSunHoursForToday($CONNECTED_DB);
+	$sonnenstundenGestern = $meineDB->calculateSunHoursForYesterday($CONNECTED_DB);
 ?>
 
 <!DOCTYPE html>
@@ -177,11 +178,11 @@
 						<div class="card kachel">
 							<div class="card-body">
 								<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-									Sonnenstunden
+									Sonnenstunden heute
 								</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $sonnenstunden, " h"; ?></div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $sonnenstundenHeute, " h"; ?></div>
 							</div>
-						</div>
+						</div>	
 					</div>
 					<div class="row">
 						<div class="card kachel">
@@ -193,15 +194,13 @@
 							</div>
                         </div>
 							<div class="card kachel">
-								<div class="card-body">
-									<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-										Luftdruck
-									</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800">
-									<?php 
-									echo $meinWert->getDruck();
-									echo " hPa"; ?></div>
+							<div class="card-body">
+								<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+									Sonnenstunden gestern
+								</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $sonnenstundenGestern, " h"; ?></div>
 							</div>
+						</div>
                         </div>
 					</div>
             </div>
